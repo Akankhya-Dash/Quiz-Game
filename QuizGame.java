@@ -19,7 +19,7 @@ public class QuizGame {
             switch (choice) {
                 case 1 -> createQuiz();
                 case 2 -> playQuiz();
-                case 3 -> HighScoreManager.viewHighScore();
+                case 3 -> HighScoreManager.viewLeaderboard();
                 case 4 -> System.out.println("Exiting... Thank you for playing!");
                 default -> System.out.println("Invalid choice.");
             }
@@ -62,6 +62,6 @@ public class QuizGame {
         String name = sc.nextLine();
 
         int score = quiz.play(sc, name);
-        HighScoreManager.saveHighScore(name, score);
+        HighScoreManager.saveScore(name, score);
     }
 }

@@ -4,54 +4,62 @@ import java.util.*;
 public class HighScoreManager {
     private static final String SCORE_FILE = "highscore.txt";
 
-    public static void saveHighScore(String name, int score) {
-        try {
-            int highScore = 0;
-            String highScorer = "";
-
-            File file = new File(SCORE_FILE);
-            if (file.exists()) {
-                Scanner fileReader = new Scanner(file);
-                if (fileReader.hasNextLine()) {
-                    highScorer = fileReader.nextLine();
-                }
-                if (fileReader.hasNextInt()) {
-                    highScore = fileReader.nextInt();
-                }
-                fileReader.close();
-            }
-
-            if (score > highScore) {
-                FileWriter fw = new FileWriter(SCORE_FILE);
-                fw.write(name + "\n" + score);
-                fw.close();
-                System.out.println("New High Score: " + score + " by " + name);
-            } else {
-                System.out.println("High Score remains: " + highScore + " by " + highScorer);
-            }
-
+    // Save a player's score (append to file)
+    public static void saveScore(String name, int score) {
+        try (FileWriter fw = new FileWriter(SCORE_FILE, true)) { // true = append mode
+            fw.write(name + "," + score + "\n");
         } catch (IOException e) {
-            System.out.println("Error saving high score: " + e.getMessage());
+            System.out.println("Error saving score: " + e.getMessage());
         }
     }
 
-    public static void viewHighScore() {
+    // View leaderboard (Top 5 scores)
+    public static void viewLeaderboard() {
         try {
             File file = new File(SCORE_FILE);
             if (!file.exists()) {
-                System.out.println("No high score recorded yet.");
+                System.out.println("No scores recorded yet.");
                 return;
             }
 
+            // Read all scores
+            List<PlayerScore> scores = new ArrayList<>();
             Scanner fileReader = new Scanner(file);
-            String name = fileReader.nextLine();
-            int score = fileReader.nextInt();
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    int score = Integer.parseInt(parts[1]);
+                    scores.add(new PlayerScore(name, score));
+                }
+            }
             fileReader.close();
 
-            System.out.println("High Score: " + score + " by " + name);
+            // Sort scores descending
+            scores.sort((a, b) -> Integer.compare(b.score, a.score));
+
+            // Show top 5
+            System.out.println("\n===== LEADERBOARD =====");
+            for (int i = 0; i < Math.min(5, scores.size()); i++) {
+                PlayerScore ps = scores.get(i);
+                System.out.println((i + 1) + ". " + ps.name + " - " + ps.score);
+            }
+            System.out.println("=======================");
 
         } catch (IOException e) {
-            System.out.println("Error reading high score: " + e.getMessage());
+            System.out.println("Error reading scores: " + e.getMessage());
+        }
+    }
+
+    // Inner class to hold score data
+    static class PlayerScore {
+        String name;
+        int score;
+
+        PlayerScore(String name, int score) {
+            this.name = name;
+            this.score = score;
         }
     }
 }
