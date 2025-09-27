@@ -1,6 +1,6 @@
-# 🎯 Quiz Game (Java Console Project)
+#  Quiz Game (Java Console Project)
 
-## 📌 Overview
+## Overview
 This is a **menu-driven Quiz Game** built in Java using Object-Oriented Programming concepts.  
 The project allows users to:
 - Create their own quiz by entering questions, options, and correct answers
@@ -12,7 +12,7 @@ This project demonstrates the use of **Java OOP, Collections, File Handling, and
 
 ---
 
-## 🚀 Features
+## Features
 - **Menu system**
   - Create Quiz
   - Play Quiz
@@ -32,8 +32,9 @@ This project demonstrates the use of **Java OOP, Collections, File Handling, and
 
 ---
 
-## 📂 Project Structure
-QuizGame/
+## Project Structure
+QuizGame
+
 ├── Question.java # Represents a single question
 
 ├── Quiz.java # Manages quiz logic and gameplay
@@ -46,7 +47,7 @@ QuizGame/
 
 └── README.md # Project documentation
 
-## ▶️ How to Run
+##  How to Run
 1. Clone the repository or download the project.
 2. Compile the Java files:
    ```bash
