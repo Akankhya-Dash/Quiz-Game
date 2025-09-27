@@ -35,10 +35,15 @@ This project demonstrates the use of **Java OOP, Collections, File Handling, and
 ## 📂 Project Structure
 QuizGame/
 ├── Question.java # Represents a single question
+
 ├── Quiz.java # Manages quiz logic and gameplay
+
 ├── HighScoreManager.java # Handles saving & displaying leaderboard
+
 ├── QuizGame.java # Main class with menu system
+
 ├── highscore.txt # (Auto-created) Stores scores persistently
+
 └── README.md # Project documentation
 
 ## ▶️ How to Run
